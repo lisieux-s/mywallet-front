@@ -7,6 +7,7 @@ import { Entries, Buttons, Total } from './style';
 import Entry from './Entry';
 
 import useAuth from '../../hooks/useAuth';
+import useUser from '../../hooks/useUser';
 import api from '../../services/api';
 
 import MINUS from '../../assets/minus.png';
@@ -15,7 +16,8 @@ import PLUS from '../../assets/plus.png';
 export default function Home() {
   const navigate = useNavigate();
 
-  const { auth } = useAuth(); //youll use this to send as req in the get request
+  const { auth } = useAuth();
+  const { user } = useUser();
 
   const [entries, setEntries] = useState(null);
   const [total, setTotal] = useState(0);
@@ -44,7 +46,7 @@ export default function Home() {
 
   return (
     <>
-      <Header title={`Olá, ${'usuário'}`} />
+      <Header title={`Olá, ${user}`} />
       <Entries entries={entries}>
         <span>
           {entries

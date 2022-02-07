@@ -6,10 +6,12 @@ import Home from './pages/Home/index';
 import New from './pages/New/index';
 
 import { AuthProvider } from './contexts/AuthContext';
+import {UserProvider} from './contexts/UserContext';
 
 export default function App() {
   return (
     <AuthProvider>
+      <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SignIn />} />
@@ -18,6 +20,7 @@ export default function App() {
           <Route path='/new/:type' element={<New />} />
         </Routes>
       </BrowserRouter>
+      </UserProvider>
     </AuthProvider>
   );
 }
