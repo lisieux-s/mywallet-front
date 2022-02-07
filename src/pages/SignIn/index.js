@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import StyledLink from '../../components/StyledLink';
-//import api from '../../services/api'
+import api from '../../services/api';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -10,10 +10,12 @@ export default function SignIn() {
   const [form, setForm] = useState({ email: '', password: '' });
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    //const promise = api.login(form)
-    //promise.then(navigate('/home'))
-    //promise.catch()
+    e.preventDefault();
+    const promise = api.signIn(form);
+    promise.then(() => {
+      navigate('/home');
+    });
+    promise.catch();
   }
 
   return (
