@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Header from "../../components/Header";
@@ -7,6 +7,8 @@ import useAuth from "../../hooks/useAuth";
 import api from "../../services/api";
 
 export default function New() {
+    const navigate = useNavigate();
+
     const { auth } = useAuth();
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
@@ -18,7 +20,7 @@ export default function New() {
         const time = Date.now()
 
         const promise = api.createEntry({ type, value, description, time }, auth)
-        promise.then()
+        promise.then(() => navigate('/home'))
         promise.catch()
     }
 

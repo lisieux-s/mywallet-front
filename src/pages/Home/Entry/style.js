@@ -3,11 +3,19 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     
 
-    span {
+    div {
         display: flex;
         gap: 5px;
+
+        p {
+            width: 100px;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
     }
 `
 
@@ -16,5 +24,6 @@ export const Date = styled.p`
 `
 
 export const Value = styled.div`
-    color: ${props => props.type === 'in' ? '#03AC00' : '#C70000'}
+    color: ${props => props.type === 'in' ? '#03AC00' : '#C70000'};
+    text-align: right;
 `

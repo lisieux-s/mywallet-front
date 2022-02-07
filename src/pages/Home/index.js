@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
-import { Entries, Buttons } from './style';
+import { Entries, Buttons, Total } from './style';
 import Entry from './Entry';
 
 import useAuth from '../../hooks/useAuth';
@@ -18,12 +18,24 @@ export default function Home() {
   const { auth } = useAuth(); //youll use this to send as req in the get request
 
   const [entries, setEntries] = useState(null);
+  const [total, setTotal] = useState(0);
+  const valuesArr = [];
+
+  function calculateTotal(entries) {
+    entries.map((entry) => {
+      valuesArr.push(parseInt(entry.value));
+    });
+    const reducer = (previousValue, currentValue) =>
+      previousValue + currentValue;
+    setTotal(valuesArr.reduce(reducer));
+  }
 
   function loadEntries() {
-    const promise = api.getEntries(auth.token);
+    const promise = api.getEntries(auth);
     promise.then((res) => {
       setEntries(res.data);
-      console.log(res.data[0])
+
+      calculateTotal(res.data);
     });
     promise.catch((res) => console.log(res));
   }
@@ -32,10 +44,24 @@ export default function Home() {
 
   return (
     <>
-      <Header title='Olá, fulano' />
+      <Header title={`Olá, ${'usuário'}`} />
       <Entries entries={entries}>
         <span>
-          {entries ?  entries.map(entry => <Entry {...entry}/>) : 'Não há registros de entrada ou saída'}
+          {entries
+            ? entries.map((entry) => <Entry {...entry} />)
+            : 'Não há registros de entrada ou saída'}
+        </span>
+        <span>
+          {entries ? (
+            <Total>
+              <p>SALDO</p>
+              <p class='value' total={total}>
+                {total}
+              </p>
+            </Total>
+          ) : (
+            ''
+          )}
         </span>
       </Entries>
       <Buttons>
