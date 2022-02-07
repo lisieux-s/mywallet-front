@@ -4,15 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import StyledLink from '../../components/StyledLink';
 import api from '../../services/api';
 
+import useAuth from '../../hooks/useAuth';
+
 export default function SignIn() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ email: '', password: '' });
+  const { auth, signIn } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
     const promise = api.signIn(form);
-    promise.then(() => {
+    promise.then((res) => {
+      console.log(res.data)
+      signIn(res.data)
       navigate('/home');
     });
     promise.catch();

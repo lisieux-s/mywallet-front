@@ -1,20 +1,45 @@
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 import Header from "../../components/Header";
 
+import useAuth from "../../hooks/useAuth";
+import api from "../../services/api";
+
 export default function New() {
+    const { auth } = useAuth();
+    const [value, setValue] = useState('');
+    const [description, setDescription] = useState('');
+
     const type = useParams().type;
+
+    function handleCreateEntry(e) {
+        e.preventDefault();
+        const time = Date.now()
+
+        const promise = api.createEntry({ type, value, description, time }, auth.token)
+        promise.then(() => {
+            console.log(value, description)
+        })
+        promise.catch()
+    }
 
     return(
         <>
         <Header title={type === 'in' ? 'Nova entrada' : 'Nova saída'}/>
-        <form>
+        <form onSubmit={handleCreateEntry}>
             <input 
-                placeholder="Valor"    
+            type='text'
+                placeholder="Valor" 
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+
             />
             <input 
+            type='text'
                 placeholder="Descrição"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
             />
             <button>Salvar {type === 'in' ? 'entrada' : 'saída'}</button>
         </form>

@@ -5,12 +5,17 @@ import { useState } from 'react';
 import Header from '../../components/Header';
 import { Entries, Buttons } from './style';
 
+import useAuth from '../../hooks/useAuth'
+
 import MINUS from '../../assets/minus.png';
 import PLUS from '../../assets/plus.png';
 
 export default function Home() {
   const navigate = useNavigate();
+
+    const { auth } = useAuth(); //youll use this to send as req in the get request
   const [entriesFound, setEntriesFound] = useState(false);
+
   return (
     <>
       <Header title='Olá, fulano' />
