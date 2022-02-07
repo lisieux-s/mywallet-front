@@ -42,6 +42,7 @@ form button {
 form input {
   height: 58px;
   padding: 15px;
+
 }
 
 form button {
@@ -52,6 +53,9 @@ form button {
 button {
   background: #a328d6;
   color: #ffffff;
+
+  border: 0;
+  border-radius: 5px;
 }
 
 .logo {
