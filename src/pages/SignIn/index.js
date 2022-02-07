@@ -16,7 +16,6 @@ export default function SignIn() {
     e.preventDefault();
     const promise = api.signIn(form);
     promise.then((res) => {
-      console.log(res.data)
       signIn(res.data)
       navigate('/home');
     });

@@ -17,10 +17,8 @@ export default function New() {
         e.preventDefault();
         const time = Date.now()
 
-        const promise = api.createEntry({ type, value, description, time }, auth.token)
-        promise.then(() => {
-            console.log(value, description)
-        })
+        const promise = api.createEntry({ type, value, description, time }, auth)
+        promise.then()
         promise.catch()
     }
 

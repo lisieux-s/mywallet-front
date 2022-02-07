@@ -22,8 +22,14 @@ function createEntry(body, token) {
     return promise;
 }
 
+function getEntries(token) {
+    const config = createConfig(token);
+    const promise = axios.get(`${BASE}/home`, config);
+    return promise;
+}
+
 const api = {
-    createConfig, signUp, signIn, createEntry
+    createConfig, signUp, signIn, createEntry, getEntries
 
 }
 
